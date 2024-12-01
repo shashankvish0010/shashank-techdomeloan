@@ -31,8 +31,8 @@
 You can chekout the deployed version as mentioned in the task description;
 -Although you just need frontend url to interact/use the webapp.
 
-frontend:
-backend: 
+frontend: https://shashank-techdomeloan.vercel.app
+backend: https://shashank-techdomeloan.onrender.com
 
 #Local setup
 -- Setup database within the backend first as per your local pgsql, setup env - like host, port etc. // Or you can just comment this statement in dbconnect.ts -> `    process.env.NODE_ENV === "production" ? proConfig : DatabaseUrl,` and can use ony `proConfig`.
