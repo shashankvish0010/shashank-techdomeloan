@@ -16,6 +16,14 @@ export const userAuthRegisterUtils = async (
     !confirm_password ||
     !user_email
   ) {
+    console.log(
+      firstname,
+      lastname,
+      user_password,
+      confirm_password,
+      user_email
+    );
+
     return { success: false, message: "Fill all the fields" };
   }
 
