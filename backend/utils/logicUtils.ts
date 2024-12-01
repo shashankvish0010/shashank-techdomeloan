@@ -64,7 +64,27 @@ export const updateAdminLoanUtils = async (token: string, loanId: string) => {
   }
 };
 
-export const manageLoansUtils = async (userId: string) => {
+export const manageLoansUtils = async (loanId: string) => {
+  if (!loanId) {
+    return { success: false, message: "No loan id found" };
+  }
+  try {
+    const loan = await db.query("SELECT * FROM Loan WHERE id=$1", [loanId]);
+
+    if (Number(loan.rowCount) <= 0) {
+      return { success: false, message: "loan not found." };
+    }
+
+    return { success: true, message: "No errors found." };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Error while fetching user loan details",
+    };
+  }
+};
+
+export const readAllLoansUtils = async (userId: string) => {
   if (!userId) {
     return { success: false, message: "No user id found" };
   }
@@ -72,7 +92,7 @@ export const manageLoansUtils = async (userId: string) => {
     const user = await db.query("SELECT * FROM Customer WHERE id=$1", [userId]);
 
     if (Number(user.rowCount) <= 0) {
-      return { success: false, message: "User not found." };
+      return { success: false, message: "user not found." };
     }
 
     const result = await db.query("SELECT * FROM Loan WHERE customer_id=$1", [
@@ -80,13 +100,13 @@ export const manageLoansUtils = async (userId: string) => {
     ]);
 
     if (Number(result.rowCount) <= 0) {
-      return { success: false, message: "No Loans found." };
+      return { success: false, message: "No users found." };
     }
     return { success: true, message: "No errors found." };
   } catch (error) {
     return {
       success: false,
-      message: "Error while fetching user loan details",
+      message: "Error while fetching user user details",
     };
   }
 };

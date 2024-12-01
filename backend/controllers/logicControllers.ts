@@ -3,6 +3,7 @@ import {
   initiateLoanUtils,
   manageLoansUtils,
   payRepaymentUtils,
+  readAllLoansUtils,
   updateAdminLoanUtils,
 } from "../utils/logicUtils";
 import db from "../dbconnect";
@@ -48,8 +49,7 @@ export const initiateLoan = async (req: Request, res: Response) => {
 
 export const updateAdminLoan = async (req: Request, res: Response) => {
   try {
-    const token =
-      "eyJhbGciOiJIUzI1NiJ9.ZmE0YjBiZGEtMTI1NS00Yjc5LTk1OTQtZTE5NDMzMGY5MTk3.e5EGK_v4c2R_4EXKH0SDj08kzgMvDjOdw8PzGuQLAHU";
+    const token = req.cookies.user_access;
     const { loanId } = req.params;
     const updateAdminLoanWarnings = await updateAdminLoanUtils(token, loanId);
 
@@ -71,9 +71,36 @@ export const updateAdminLoan = async (req: Request, res: Response) => {
   }
 };
 
-export const manageLoans = async (req: Request, res: Response) => {
+export const readAllLoans = async (req: Request, res: Response) => {
   const { userId } = req.params;
-  const manageLoansWarnings = await manageLoansUtils(userId);
+  const readAllLoansWarnings = await readAllLoansUtils(userId);
+
+  if (!readAllLoansWarnings?.success) {
+    res.json(readAllLoansWarnings);
+    return;
+  }
+
+  try {
+    const result = await db.query("SELECT * FROM Loan WHERE customer_id=$1", [
+      userId,
+    ]);
+    if (Number(result.rowCount) > 0) {
+      res.json({
+        success: true,
+        data: result.rows,
+        message: "Current loan details",
+      });
+    } else {
+      res.json({ success: false, message: "No current loan details found" });
+    }
+  } catch (error) {
+    res.json({ success: false, message: error });
+  }
+};
+
+export const manageLoans = async (req: Request, res: Response) => {
+  const { loanId } = req.params;
+  const manageLoansWarnings = await manageLoansUtils(loanId);
 
   if (!manageLoansWarnings?.success) {
     res.json(manageLoansWarnings);
@@ -82,9 +109,7 @@ export const manageLoans = async (req: Request, res: Response) => {
 
   try {
     let data: manageLoanData[] = [];
-    const result = await db.query("SELECT * FROM Loan WHERE customer_id=$1", [
-      userId,
-    ]);
+    const result = await db.query("SELECT * FROM Loan WHERE id=$1", [loanId]);
     if (Number(result.rowCount) > 0) {
       result.rows.forEach((loan) => {
         const repayment_amount =
@@ -95,9 +120,12 @@ export const manageLoans = async (req: Request, res: Response) => {
           loan.term_duration
         );
         data.push({
+          id: loan.id,
+          loan_paid: loan.loan_paid,
           loan_amount: loan.loan_amount,
           term_duration: loan.term_duration,
           approved_date: loan.approved_date,
+          term_paid: loan.term_paid,
           repayment_amount,
           repayment_dates,
         });
@@ -134,12 +162,37 @@ export const payRepayment = async (req: Request, res: Response) => {
       : false;
   try {
     const result = await db.query(
-      "UPDATE Loan SET paid_amount=$2, term_paid=$3, loan_paid=$4 WHERE id=$1",
+      "UPDATE Loan SET paid_amount=$2, term_paid=$3, loan_paid=$4 WHERE id=$1 RETURNING *",
       [loanId, paid_amount, term_paid, paid]
     );
 
     if (result) {
-      res.json({ success: true, message: "Paid repayment successfully" });
+      res.json({
+        success: true,
+        data: result.rows,
+        message: "Paid repayment successfully",
+      });
+    }
+  } catch (error) {
+    res.json({ success: false, message: error });
+  }
+};
+
+export const fetchAllLoans = async (req: Request, res: Response) => {
+  try {
+    const result = await db.query(
+      "SELECT Loan.id AS loanId,Customer.firstname,Customer.lastname,Customer.user_email,Loan.loan_amount,Loan.term_duration,Loan.loan_status FROM Loan INNER JOIN Customer ON Loan.customer_id = Customer.id"
+    );
+    if (Number(result.rowCount) > 0) {
+      const user = await db.query("SELECT * FROM Customer");
+
+      res.json({
+        success: true,
+        data: result.rows,
+        message: "Loan fetched successfully",
+      });
+    } else {
+      res.json({ success: false, message: "No loans found" });
     }
   } catch (error) {
     res.json({ success: false, message: error });

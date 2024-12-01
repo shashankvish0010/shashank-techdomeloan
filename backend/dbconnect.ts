@@ -8,8 +8,7 @@ const proConfig = process.env.DB_ProdUrl;
 
 const pool = new Pool({
   connectionString:
-    // process.env.NODE_ENV === "production" ? proConfig : DatabaseUrl,
-    "postgres://nwzzsnee:0hquNQdObA16w3DBXRPGGv3WnziVVLtr@kashin.db.elephantsql.com/nwzzsnee",
+    process.env.NODE_ENV === "production" ? proConfig : DatabaseUrl,
   ssl: {
     rejectUnauthorized: false,
   },

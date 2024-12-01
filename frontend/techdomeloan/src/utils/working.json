@@ -1,0 +1,27 @@
+[
+    {
+        "step": "step one",
+        "title": "Create an account / Login",
+        "description": "Login with your registered account or create a new account to register"
+    },
+    {
+        "step": "step two",
+        "title": "Loan Request",
+        "description": "Request a loan amount with a term duration."
+    },
+    {
+        "step": "step three",
+        "title": "Loan Approval",
+        "description": "To approve, login / create an admin account.."
+    },
+    {
+        "step": "step four",
+        "title": "Access Admin Panel",
+        "description": "Login with Admin account and now you can see all the laons, can approve them."
+    },
+    {
+        "step": "step five",
+        "title": "Repay Loan",
+        "description": "Once approved, you can repay the loan at given date provided to you."
+    }
+]
