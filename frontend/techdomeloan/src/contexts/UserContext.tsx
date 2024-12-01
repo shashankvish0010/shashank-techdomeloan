@@ -27,8 +27,8 @@ export const UserauthProvider = (props: any) => {
   const reducer = async (state: any, action: any) => {
     switch (action.type) {
       case "LOGIN": {
-        const { user_email, user_password } = user;
         setLoader(true);
+        const { user_email, user_password } = user;
         try {
           const response = await fetch(
             "https://shashank-techdomeloan.onrender.com" + "/user/login",
@@ -44,8 +44,8 @@ export const UserauthProvider = (props: any) => {
             }
           );
           if (response) {
-            const data = await response.json();
             setLoader(false);
+            const data = await response.json();
             if (data.success == true) {
               setMessage(data.message);
               document.cookie = `user_access=${data.data.token}; path=/`;

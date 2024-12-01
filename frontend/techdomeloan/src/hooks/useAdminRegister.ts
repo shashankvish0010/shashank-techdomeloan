@@ -26,6 +26,7 @@ const useAdminRegister = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    adminauth?.setLoader(true);
     const {
       firstname,
       lastname,
@@ -33,7 +34,6 @@ const useAdminRegister = () => {
       admin_password,
       confirm_password,
     } = admin;
-    adminauth?.setLoader(true);
     try {
       const response = await fetch(
         "https://shashank-techdomeloan.onrender.com" + "/admin/register",

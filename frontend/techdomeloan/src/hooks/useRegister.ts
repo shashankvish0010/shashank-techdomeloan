@@ -55,9 +55,9 @@ const useRegister = () => {
         }
       );
       if (response) {
+        userauth?.setLoader(false);
         const data = await response.json();
         setMessage(data);
-        userauth?.setLoader(false);
         if (data.success === true) {
           setMessage(data.message);
           navigate("/user/login");

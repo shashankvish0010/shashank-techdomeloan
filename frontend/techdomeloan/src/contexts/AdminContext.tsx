@@ -28,8 +28,8 @@ export const AdminauthProvider = (props: any) => {
   const reducer = async (state: any, action: any) => {
     switch (action.type) {
       case "LOGIN": {
-        const { admin_email, admin_password } = admin;
         setLoader(true);
+        const { admin_email, admin_password } = admin;
         try {
           const response = await fetch(
             "https://shashank-techdomeloan.onrender.com" + "/admin/login",
