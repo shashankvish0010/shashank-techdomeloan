@@ -33,6 +33,7 @@ const Headers: React.FC = () => {
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
             <Link to="/admin/login">Admin</Link>
+            <Link to="/user/dashboard">Dashboard</Link>
             <li
               onClick={() =>
                 (window.location.href =
@@ -110,6 +111,7 @@ const Headers: React.FC = () => {
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
             <Link to="/admin/login">Admin</Link>
+            <Link to="/user/dashboard">Dashboard</Link>
             <li
               onClick={() =>
                 (window.location.href =
