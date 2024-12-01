@@ -3,9 +3,11 @@ import { UserContext } from "../contexts/UserContext";
 import UserLoanCard from "../components/UserLoanCard";
 import usePayment from "../hooks/usePayment";
 import Loader from "../components/Loader";
+import { useNavigate } from "react-router-dom";
 
 const UserDashboard: React.FC = () => {
   const userauth = useContext(UserContext);
+  const navigate = useNavigate();
   const {
     loanData,
     setLoanData,
@@ -15,6 +17,12 @@ const UserDashboard: React.FC = () => {
     userLoansFetch,
     message,
   } = usePayment();
+
+  useEffect(() => {
+    if (!userauth?.login) {
+      navigate("/user/login");
+    }
+  }, [userauth?.login]);
 
   useEffect(() => {
     userLoansFetch(userauth?.curruser?.id);
