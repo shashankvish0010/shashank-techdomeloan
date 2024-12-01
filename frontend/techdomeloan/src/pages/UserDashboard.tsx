@@ -8,6 +8,7 @@ const UserDashboard: React.FC = () => {
   const userauth = useContext(UserContext);
   const {
     loanData,
+    setLoanData,
     loanApplication,
     initiateLoan,
     handleLoanChange,
@@ -17,7 +18,7 @@ const UserDashboard: React.FC = () => {
 
   useEffect(() => {
     userLoansFetch(userauth?.curruser?.id);
-  }, [usePayment]);
+  }, [usePayment, setLoanData]);
 
   return (
     <div className="h-max w-screen flex flex-col items-center justify-center p-5 gap-5">

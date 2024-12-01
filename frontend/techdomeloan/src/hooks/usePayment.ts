@@ -159,6 +159,7 @@ const usePayment = () => {
     setRepayAmount,
     payRepaymentLoan,
     handleLoanChange,
+    setLoanData,
     loanApplication,
     initiateLoan,
     manageRepayLoan,
