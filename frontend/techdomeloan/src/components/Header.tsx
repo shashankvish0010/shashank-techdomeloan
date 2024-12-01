@@ -31,7 +31,6 @@ const Headers: React.FC = () => {
         >
           <ul className="hidden md:flex flex-row p-2 justify-evenly w-[30vw] font-medium bg-slate-100 text-blue-600 shadow-lg rounded-b-full">
             <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
             <Link to="/admin/login">Admin</Link>
             <Link to="/user/dashboard">Dashboard</Link>
             <li
@@ -109,7 +108,6 @@ const Headers: React.FC = () => {
         >
           <ul className="h-[25vh] text-white uppercase md:hidden flex flex-col justify-around text-sm">
             <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
             <Link to="/admin/login">Admin</Link>
             <Link to="/user/dashboard">Dashboard</Link>
             <li
