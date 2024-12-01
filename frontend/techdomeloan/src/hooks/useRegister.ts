@@ -25,11 +25,18 @@ const useRegister = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    userauth?.setLoader(true);
     e.preventDefault();
     const { firstname, lastname, user_email, user_password, confirm_password } =
       user;
     try {
-      userauth?.setLoader(true);
+      console.log(
+        firstname,
+        lastname,
+        user_email,
+        user_password,
+        confirm_password
+      );
 
       const response = await fetch(
         "https://shashank-techdomeloan.onrender.com" + "/admin/register",
