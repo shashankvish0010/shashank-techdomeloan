@@ -32,7 +32,7 @@ const useRegister = () => {
       userauth?.setLoader(true);
 
       const response = await fetch(
-        "http://localhost:8000" + "/admin/register",
+        "https://shashank-techdomeloan.onrender.com" + "/admin/register",
         {
           method: "POST",
           headers: {

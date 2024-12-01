@@ -32,7 +32,7 @@ export const AdminauthProvider = (props: any) => {
         setLoader(true);
         try {
           const response = await fetch(
-            "http://localhost:8000" + "/admin/login",
+            "https://shashank-techdomeloan.onrender.com" + "/admin/login",
             {
               method: "POST",
               headers: {
@@ -80,7 +80,7 @@ export const AdminauthProvider = (props: any) => {
     setLoader(true);
     try {
       const response = await fetch(
-        "http://localhost:8000" + "/fetch/allloans",
+        "https://shashank-techdomeloan.onrender.com" + "/fetch/allloans",
         {
           method: "GET",
           headers: {
@@ -108,7 +108,7 @@ export const AdminauthProvider = (props: any) => {
     setLoader(true);
     try {
       const response = await fetch(
-        "http://localhost:8000" + "/update/loan/" + loanId,
+        "https://shashank-techdomeloan.onrender.com" + "/update/loan/" + loanId,
         {
           method: "GET",
           headers: {

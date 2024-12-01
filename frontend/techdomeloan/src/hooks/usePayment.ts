@@ -34,7 +34,9 @@ const usePayment = () => {
     setLoader(true);
     try {
       const response = await fetch(
-        "http://localhost:8000" + "/initiate/loan/" + userId,
+        "https://shashank-techdomeloan.onrender.com" +
+          "/initiate/loan/" +
+          userId,
         {
           method: "POST",
           headers: {
@@ -65,7 +67,7 @@ const usePayment = () => {
     setLoader(true);
     try {
       const response = await fetch(
-        "http://localhost:8000" + "/fetch/loan/" + loanId,
+        "https://shashank-techdomeloan.onrender.com" + "/fetch/loan/" + loanId,
         {
           method: "GET",
           headers: {
@@ -93,7 +95,7 @@ const usePayment = () => {
     setLoader(true);
     try {
       const response = await fetch(
-        "http://localhost:8000" + "/fetch/loans/" + userId,
+        "https://shashank-techdomeloan.onrender.com" + "/fetch/loans/" + userId,
         {
           method: "GET",
           headers: {
@@ -121,7 +123,7 @@ const usePayment = () => {
     setLoader(true);
     try {
       const response = await fetch(
-        "http://localhost:8000" + "/repay/loan/" + loanId,
+        "https://shashank-techdomeloan.onrender.com" + "/repay/loan/" + loanId,
         {
           method: "POST",
           headers: {
