@@ -1,6 +1,10 @@
 ## Full stack assignment - Loan App
 - I designed and developed the loan web app, whcih enables uers to register/login and request for a loan, Admin can approve the loan, Once the loan is approved the user can repay it with a scheduled repayment within week from the approval date.
 
+## Admin passwords:
+- validPasswords are "AX34DV", "BGCDSV", "GHTR3G"
+- You can choose any one of them to register.
+
 ## Tech - stack used:
 # Frontend:
 - Used React + Vite with Typescript - to write type safe code for the web app and its better at production.
