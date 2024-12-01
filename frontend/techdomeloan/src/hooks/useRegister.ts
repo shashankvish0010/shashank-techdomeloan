@@ -42,8 +42,8 @@ const useRegister = () => {
             firstname,
             lastname,
             user_email,
-            user_password,
             confirm_password,
+            user_password,
           }),
         }
       );
@@ -53,7 +53,7 @@ const useRegister = () => {
         userauth?.setLoader(false);
         if (data.success === true) {
           setMessage(data.message);
-          navigate("/admin/login");
+          navigate("/user/login");
         } else {
           setMessage(data.message);
         }
