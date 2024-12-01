@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { userType } from "../Types/dto";
 import { useNavigate } from "react-router-dom";
-// import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../contexts/UserContext";
 
 const useRegister = () => {
-  // const userauth = useContext(UserContext);
+  const userauth = useContext(UserContext);
   const [user, setUser] = useState<userType>({
     firstname: "",
     lastname: "",
@@ -25,13 +25,14 @@ const useRegister = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    // userauth?.setLoader(true);
     e.preventDefault();
+    userauth?.setLoader(true);
+
     const { firstname, lastname, user_email, user_password, confirm_password } =
       user;
     try {
       const response = await fetch(
-        "https://shashank-techdomeloan.onrender.com" + "/admin/register",
+        "https://shashank-techdomeloan.onrender.com" + "/user/register",
         {
           method: "POST",
           headers: {
@@ -47,7 +48,7 @@ const useRegister = () => {
         }
       );
       if (response) {
-        // userauth?.setLoader(false);
+        userauth?.setLoader(false);
         const data = await response.json();
         setMessage(data);
         if (data.success === true) {
