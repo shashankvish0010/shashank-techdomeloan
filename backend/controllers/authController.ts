@@ -35,11 +35,15 @@ export const userRegister = async (req: Request, res: Response) => {
       return;
     }
     const result = await db.query(
-      "INSERT INTO Customer(id, firstname, lastname, user_password, user_email) VALUES ($1, $2, $3, $4, $5) RETURNING id",
+      "INSERT INTO Customer(id, firstname, lastname, user_password, user_email) VALUES ($1, $2, $3, $4, $5) RETURNING *",
       [id, firstname, lastname, hashedPassword, user_email]
     );
     if (result) {
-      res.json({ success: true, message: "Registered Successfully" });
+      res.json({
+        success: true,
+        data: result.rows[0],
+        message: "Registered Successfully",
+      });
     } else {
       res.json({ success: false, message: "Not Registered Successfully" });
     }
